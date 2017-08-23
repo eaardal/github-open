@@ -2,7 +2,7 @@
   "profiles": {
     "GitHubOpen": {
       "commandName": "Project",
-      "commandLineArgs": "c:\\dev\\git\\spv-i18n"
+      "commandLineArgs": "set-alias intl2 c:\\dev\\git\\spv-i18n prs"
     }
   }
 }

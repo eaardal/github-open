@@ -10,10 +10,13 @@ namespace GitHubOpen
         {
             var commands = new List<ICommand>
             {
+                new SetAliasCommand(),
                 new OpenCommand()
             };
 
-            foreach (var command in commands.Where(command => command.HasValidArguments(args)))
+            var command = commands.FirstOrDefault(cmd => cmd.HasValidArguments(args));
+
+            if (command != null)
             {
                 try
                 {
@@ -29,6 +32,12 @@ namespace GitHubOpen
 
                     Console.ResetColor();
                 }
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Your gibberish input did not match any known functionality. SAD.");
+                Console.ResetColor();
             }
         }
     }

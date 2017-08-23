@@ -21,21 +21,29 @@ namespace GitHubOpen
 
         public void Handle(string[] args)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("Opening ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("\"");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(_parsedArgs.GitHubUrl);
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("\"");
-
-            Console.ResetColor();
+            WriteUrlToConsole();
 
             Process.Start(new ProcessStartInfo(_parsedArgs.GitHubUrl)
             {
                 UseShellExecute = true,
             });
+        }
+
+        private void WriteUrlToConsole()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write("Opening ");
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\"");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(_parsedArgs.GitHubUrl);
+
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("\"");
+
+            Console.ResetColor();
         }
     }
 }

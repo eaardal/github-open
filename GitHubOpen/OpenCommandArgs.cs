@@ -13,8 +13,12 @@ namespace GitHubOpen
         public static (bool ok, OpenCommandArgs parsedArgs) Parse(string[] args)
         {
             var openCommandArgs = new OpenCommandArgs();
+            
+            (var foundAlias, Alias alias) = TryResolveKnownAlias(args);
 
-            var directory = ResolveGitRepositoryRootDirectory(args);
+            var directory = foundAlias
+                ? alias.DirectoryPath
+                : ResolveGitRepositoryRootDirectory(args);
 
             var gitRepositoryUrl = ResolveGitRepositoryUrl(directory);
 
@@ -25,10 +29,10 @@ namespace GitHubOpen
             };
 
             openCommandArgs.GitHubUrl = gitRepositoryUrl;
-
+            
             foreach (var param in urlParams)
             {
-                (var ok, var parsedParam) = param.Parse(args);
+                (var ok, var parsedParam) = foundAlias ? param.Parse(alias.Parameters) : param.Parse(args);
 
                 if (ok)
                 {
@@ -42,6 +46,24 @@ namespace GitHubOpen
             }
 
             return (true, openCommandArgs);
+        }
+        
+        private static (bool foundAlias, Alias alias) TryResolveKnownAlias(string[] args)
+        {
+            GitHubOpenAppDataDirectory.EnsureExists();
+
+            if (File.Exists(GitHubOpenAppDataDirectory.AliasesFilePath))
+            {
+                var aliasesLines = File.ReadAllLines(GitHubOpenAppDataDirectory.AliasesFilePath);
+
+                var aliases = Alias.ParseFromFile(aliasesLines);
+
+                var alias = aliases.FirstOrDefault(a => args.Contains(a.Key));
+
+                return (alias != null, alias);
+            }
+
+            return (false, null);
         }
 
         private static string ResolveGitRepositoryUrl(string directory)
@@ -73,7 +95,7 @@ namespace GitHubOpen
 
             foreach (var arg in args)
             {
-                if (Directory.Exists(arg) && HasDotGitSubDirectory(arg))
+                if (DirectoryUtil.IsExistingGitRepositoryRootDirectory(arg))
                 {
                     gitRepositoryRootDirectory = arg;
                 }
@@ -83,7 +105,7 @@ namespace GitHubOpen
             {
                 var currentDirectory = Environment.CurrentDirectory;
 
-                if (HasDotGitSubDirectory(currentDirectory))
+                if (DirectoryUtil.IsExistingGitRepositoryRootDirectory(currentDirectory))
                 {
                     gitRepositoryRootDirectory = currentDirectory;
                 }
@@ -96,14 +118,6 @@ namespace GitHubOpen
             }
 
             return gitRepositoryRootDirectory;
-        }
-
-        private static bool HasDotGitSubDirectory(string directory)
-        {
-            var subDirectories = new DirectoryInfo(directory).GetDirectories()
-                .Where(x => (x.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden).ToArray();
-            
-            return subDirectories.Any(subDir => subDir.Name.Equals(".git"));
         }
     }
 }
