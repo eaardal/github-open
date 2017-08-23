@@ -50,6 +50,8 @@ namespace GitHubOpen.Commands
 
                 Console.WriteLine(Environment.NewLine);
             }
+
+            Console.ResetColor();
         }
     }
 }
