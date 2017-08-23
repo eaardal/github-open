@@ -4,7 +4,7 @@ _Opens the GitHub page for the Git repository you're working in_
 
 ## Install
 
-1. [Download from Releases]()
+1. [Download from Releases](https://github.com/eaardal/github-open/releases)
 2. Add the directory with the exe to your PATH
 3. Use `gho` from a commandline
 
