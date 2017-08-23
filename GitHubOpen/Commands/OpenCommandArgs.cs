@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace GitHubOpen
+namespace GitHubOpen.Commands
 {
     public class OpenCommandArgs
     {

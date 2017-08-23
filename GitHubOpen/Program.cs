@@ -11,6 +11,7 @@ namespace GitHubOpen
             var commands = new List<ICommand>
             {
                 new SetAliasCommand(),
+                new GetAliasesCommand(),
                 new OpenCommand()
             };
 

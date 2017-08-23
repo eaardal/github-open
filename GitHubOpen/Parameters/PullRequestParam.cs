@@ -1,9 +1,11 @@
-namespace GitHubOpen
+namespace GitHubOpen.Parameters
 {
     public class PullRequestParam : IParam
     {
         private const string PullRequestsUrl = "pulls";
         private const string PullRequestByIdUrl = "pull";
+
+        public string UrlFragment { get; private set; }
 
         public (bool ok, IParam parsedParam) Parse(string[] args)
         {
@@ -30,7 +32,5 @@ namespace GitHubOpen
 
             return (false, null);
         }
-
-        public string UrlFragment { get; private set; }
     }
 }

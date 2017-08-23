@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace GitHubOpen
+namespace GitHubOpen.Commands
 {
     internal class SetAliasCommandArgs
     {

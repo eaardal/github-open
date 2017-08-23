@@ -1,4 +1,4 @@
-﻿namespace GitHubOpen
+﻿namespace GitHubOpen.Commands
 {
     internal interface ICommand
     {

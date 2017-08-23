@@ -1,9 +1,11 @@
-﻿namespace GitHubOpen
+﻿namespace GitHubOpen.Parameters
 {
     class IssuesParam : IParam
     {
         public const string IssuesUrl = "issues";
         public const string IssueByIdUrl = "issue";
+
+        public string UrlFragment { get; private set; }
 
         public (bool ok, IParam parsedParam) Parse(string[] args)
         {
@@ -30,7 +32,5 @@
 
             return (false, null);
         }
-
-        public string UrlFragment { get; private set; }
     }
 }

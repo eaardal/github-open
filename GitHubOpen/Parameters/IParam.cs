@@ -1,4 +1,4 @@
-﻿namespace GitHubOpen
+﻿namespace GitHubOpen.Parameters
 {
     public interface IParam
     {

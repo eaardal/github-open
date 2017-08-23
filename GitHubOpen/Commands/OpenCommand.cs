@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace GitHubOpen
+namespace GitHubOpen.Commands
 {
     public class OpenCommand : ICommand
     {
@@ -38,7 +38,7 @@ namespace GitHubOpen
             Console.Write("\"");
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(_parsedArgs.GitHubUrl);
+            Console.Write((string) _parsedArgs.GitHubUrl);
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("\"");
