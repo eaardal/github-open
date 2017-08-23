@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GitHubOpen": {
+      "commandName": "Project",
+      "commandLineArgs": "c:\\dev\\git\\spv-i18n"
+    }
+  }
+}
