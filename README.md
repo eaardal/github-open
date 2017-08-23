@@ -2,6 +2,8 @@
 
 _Opens the GitHub page for the Git repository you're working in_
 
+![gif](./gifs/gho1.gif)
+
 ## Install
 
 1. [Download from Releases](https://github.com/eaardal/github-open/releases)
