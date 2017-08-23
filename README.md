@@ -58,7 +58,7 @@ $ gho c:/git/my-repo prs
 
 `prs`, `pull-requests`, and `pulls` are all valid parameters to launch the _Pull Requests_ GitHub page.
 
-You can also specify a specific PR by its ID:
+You can also specify a PR by its ID:
 
 ```bash
 bob@comp /c/git/my-repo
