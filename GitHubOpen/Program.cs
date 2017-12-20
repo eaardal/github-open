@@ -1,46 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GitHubOpen.Commands;
 
 namespace GitHubOpen
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            var commands = new List<ICommand>
+            var commandHandler = new CommandHandler();
+
+            if (IsRepl(args))
             {
-                new SetAliasCommand(),
-                new GetAliasesCommand(),
-                new OpenCommand()
-            };
-
-            var command = commands.FirstOrDefault(cmd => cmd.HasValidArguments(args));
-
-            if (command != null)
-            {
-                try
+                var input = string.Empty;
+                while (input != "exit")
                 {
-                    command.Handle(args);
-                }
-                catch (Exception ex)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Yuck! An error! Please correct the below mistakes and try again.");
+                    Console.WriteLine("Enter a command:");
+                    input = Console.ReadLine();
 
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(ex.Message);
-
-                    Console.ResetColor();
+                    commandHandler.FindAndExecuteCommand(input.Split(' '));
                 }
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Your gibberish input did not match any known functionality. SAD.");
-                Console.ResetColor();
+                commandHandler.FindAndExecuteCommand(args);
             }
+        }
+
+        private static bool IsRepl(IEnumerable<string> args)
+        {
+            return new[] {"-r", "--repl"}.Any(args.Contains);
         }
     }
 }

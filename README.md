@@ -132,3 +132,11 @@ $ gho get-aliases
 >  Path: c:/dev/git/my-repo
 >  Parameters: issues
 ```
+
+## Development
+
+Publish (create .exe):
+
+```
+$ dotnet publish --self-contained --runtime win10-x64 --configuration Release
+```
